@@ -20,7 +20,7 @@ zmqpubrawtx=tcp://127.0.0.1:28332
 *Resultado del script:*
 
 Tx: 
-{
+'''{
   "txid": "f9b21fdaae08534f5d59dd1da6dd8238a039819da96c6d8a808bf67fd2353de1",
   "hash": "f14f56dcd542de92465ab1f11227ebb1e3400e28aad0769686eee818f78c86d2",
   "version": 1,
@@ -39,7 +39,7 @@ Tx:
       "txinwitness": [
         "3044022023a44fbbaf75efc94f 
         ...
-
+'''
 Topic: "rawtx"
 
 Sequence number: 94d40200 -> "��\u{2}\0"
