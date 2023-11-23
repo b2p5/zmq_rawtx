@@ -7,7 +7,8 @@ use std::time::Duration;
 use zmq::Context;
 use rustc_hex::ToHex;
 extern crate hex;
-
+use std::process::Command;
+use std::str;
 
 fn mempool_subscriber() -> Result<(), Box<dyn std::error::Error>> {
     
@@ -57,7 +58,7 @@ fn mempool_subscriber() -> Result<(), Box<dyn std::error::Error>> {
             Ok(tx_hex) => {
                 // Convert bytes to a hexadecimal string
                 let hex_string = tx_hex.to_hex::<String>();
-                println!("Hash de la transacion: {:?}", hex_string);
+                //println!("Hash de la transacion: {:?}", hex_string);
 
                 process_hex_string(&hex_string);
 
@@ -78,16 +79,19 @@ fn mempool_subscriber() -> Result<(), Box<dyn std::error::Error>> {
 }
 
 
+// Procesa los distintos tipos de cadenas hexadecimales recibidas del nodo Bitcoin
 fn process_hex_string(hex_string: &str) {
     // Longitud de la cadena hexadecimal
    let len = hex_string.len();
 
    match len {
        _ if len > 10 => {
-           println!("Tx: {:?}", hex_string);
+            // Read hex string and convert to JSON
+            println!("Tx:");
+            decode_raw_transaction(hex_string);
        },
        10 => {
-           println!("Topic: {:?}", "rawtx ");
+           println!("Topic: {:?}", "rawtx");
        },
        8 => {
            let bytes = hex::decode(&hex_string).expect("Error al decodificar la cadena hexadecimal");
@@ -100,6 +104,30 @@ fn process_hex_string(hex_string: &str) {
        }
    }
 }
+
+
+fn decode_raw_transaction(raw_transaction_hex: &str) {
+
+    // Ejecutar el comando bitcoin-cli decoderawtransaction
+    let output = Command::new("bitcoin-cli")
+        .arg("decoderawtransaction")
+        .arg(raw_transaction_hex)
+        .output()
+        .expect("Error al ejecutar el comando");
+
+    // Verificar si la ejecución fue exitosa
+    if output.status.success() {
+        // Convertir la salida a una cadena UTF-8
+        let decoded_output = str::from_utf8(&output.stdout).expect("Error al decodificar la salida");
+
+        // Imprimir la salida decodificada
+        println!("{}", decoded_output);
+    } else {
+        // Imprimir mensajes de error si la ejecución no fue exitosa
+        let stderr = str::from_utf8(&output.stderr).expect("Error al decodificar la salida de error");
+        eprintln!("Error: {}", stderr);
+    }
+} 
 
 
 fn main() {

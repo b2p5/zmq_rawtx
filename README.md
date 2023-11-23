@@ -19,7 +19,26 @@ zmqpubrawtx=tcp://127.0.0.1:28332
 
 *Resultado del script:*
 
-Tx: "010000000152e2938421cc63263eab6813776fc393bd3aae08e41905d07fbbc3df1237a8e9050000006b483045022100c4ef977ad6aba2e3b2584ca732118408c5ca206fd63d9edf029b93ea206834f702200ec422ac4eb4cf69cae476820fe228cbe23a0653f7c3ec2889fad13690c2f9cf0121025b357ffef2343cf3e9f694932f84e036f35796a6fcb1d718ea54f6c35ae01c80ffffffff02bed10b0000000000160014909c2d212efdfa86557e8ee3938485510b64f64427eced0200000000160014740e4c9126112dc07979639c6c888c8f5a52e77f00000000"
+Tx: 
+{
+  "txid": "f9b21fdaae08534f5d59dd1da6dd8238a039819da96c6d8a808bf67fd2353de1",
+  "hash": "f14f56dcd542de92465ab1f11227ebb1e3400e28aad0769686eee818f78c86d2",
+  "version": 1,
+  "size": 225,
+  "vsize": 144,
+  "weight": 573,
+  "locktime": 0,
+  "vin": [
+    {
+      "txid": "bbee6621b2b3d8a5c811fdb76feef38e099adef62bcf16de0eceaf1d3ab14566",
+      "vout": 1,
+      "scriptSig": {
+        "asm": "",
+        "hex": ""
+      },
+      "txinwitness": [
+        "3044022023a44fbbaf75efc94f 
+        ...
 
 Topic: "rawtx"
 
